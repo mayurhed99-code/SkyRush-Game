@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE:skyrush}?useSSL=false&serverTimezone=UTC
+    username: ${MYSQL_USER:skyrush_app}
+    password: ${MYSQL_PASSWORD:changeme_app}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+jwt:
+  secret: ${JWT_SECRET:changeme_use_a_64_byte_random_string_in_real_env}
+  access-ttl-minutes: ${JWT_ACCESS_TTL_MINUTES:15}
+  refresh-ttl-days: ${JWT_REFRESH_TTL_DAYS:7}
+
+cors:
+  allowed-origin: ${FRONTEND_ORIGIN:http://localhost:5173}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

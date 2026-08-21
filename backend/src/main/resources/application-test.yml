@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+jwt:
+  secret: test-only-secret-not-for-production-use-1234567890
+  access-ttl-minutes: 15
+  refresh-ttl-days: 7
+cors:
+  allowed-origin: http://localhost:5173
