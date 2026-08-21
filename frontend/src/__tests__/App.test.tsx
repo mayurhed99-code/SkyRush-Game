@@ -4,8 +4,8 @@ import { render, screen } from '@testing-library/react'
 import App from '../App'
 
 describe('App', () => {
-  it('renders the placeholder home route', () => {
+  it('renders the SkyRush home page', () => {
     render(<App />)
-    expect(screen.getByText('Home — placeholder')).toBeInTheDocument()
+    expect(screen.getByText('SkyRush')).toBeInTheDocument()
   })
 })
