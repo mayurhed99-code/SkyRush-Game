@@ -3,6 +3,8 @@ import { createBrowserRouter } from 'react-router-dom'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
+import { GamePage } from './pages/GamePage'
+import { LeaderboardPage } from './pages/LeaderboardPage'
 import { ProtectedRoute } from './components/ProtectedRoute'
 
 export const router = createBrowserRouter([
@@ -12,7 +14,8 @@ export const router = createBrowserRouter([
   {
     element: <ProtectedRoute />,
     children: [
-      // /game, /leaderboard, /leaderboard/history, /profile added in Phases 5–7
+      { path: '/game', element: <GamePage /> },
+      { path: '/leaderboard', element: <LeaderboardPage /> },
     ],
   },
 ])

@@ -6,6 +6,7 @@ import com.skyrush.dto.game.SubmitScoreResponse;
 import com.skyrush.entity.*;
 import com.skyrush.exception.*;
 import com.skyrush.repository.*;
+import com.skyrush.websocket.LiveScorePublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +21,16 @@ public class GameSessionService {
     private final ScoreRepository scoreRepo;
     private final LeaderboardPeriodRepository periodRepo;
     private final AntiCheatService antiCheat;
+    private final LiveScorePublisher liveScorePublisher;
 
     public GameSessionService(GameSessionRepository sessionRepo, ScoreRepository scoreRepo,
-                               LeaderboardPeriodRepository periodRepo, AntiCheatService antiCheat) {
+                               LeaderboardPeriodRepository periodRepo, AntiCheatService antiCheat,
+                               LiveScorePublisher liveScorePublisher) {
         this.sessionRepo = sessionRepo;
         this.scoreRepo = scoreRepo;
         this.periodRepo = periodRepo;
         this.antiCheat = antiCheat;
+        this.liveScorePublisher = liveScorePublisher;
     }
 
     @Transactional
@@ -76,6 +80,8 @@ public class GameSessionService {
         score.setHeight(req.height());
         score.setMaxCombo(req.maxCombo());
         Score saved = scoreRepo.save(score);
+
+        liveScorePublisher.publish(user.getUsername(), saved.getScore(), saved.getHeight());
 
         return new SubmitScoreResponse(saved.getId(), saved.getScore(), saved.getHeight(), saved.getMaxCombo(), saved.getCreatedAt());
     }
