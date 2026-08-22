@@ -1,6 +1,7 @@
 // frontend/src/game/__tests__/Collision.test.ts
 import { describe, it, expect } from 'vitest'
-import { aabbIntersect, isLandingOnTop, Rect } from '../Collision'
+import { aabbIntersect, isLandingOnTop } from '../Collision'
+import type { Rect } from '../Collision'
 
 describe('Collision', () => {
   const platform: Rect = { x: 100, y: 200, width: 80, height: 16 }
