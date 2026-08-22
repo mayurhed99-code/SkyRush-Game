@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react'
 import { useGameLoop } from '../hooks/useGameLoop'
 import { useGameStore } from '../stores/gameStore'
-import { GameState } from '../game/types'
+import type { GameState } from '../game/types'
 
 interface Props {
   onGameOver: (finalState: GameState) => void

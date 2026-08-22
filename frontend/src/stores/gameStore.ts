@@ -1,6 +1,6 @@
 // frontend/src/stores/gameStore.ts
 import { create } from 'zustand'
-import { GameState } from '../game/types'
+import type { GameState } from '../game/types'
 
 interface GameStore {
   hudState: GameState

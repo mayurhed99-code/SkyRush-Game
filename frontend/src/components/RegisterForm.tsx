@@ -1,5 +1,6 @@
 // frontend/src/components/RegisterForm.tsx
-import { useState, FormEvent } from 'react'
+import { useState } from 'react'
+import type { FormEvent } from 'react'
 
 interface Props {
   onSubmit: (data: { username: string; email: string; password: string }) => void

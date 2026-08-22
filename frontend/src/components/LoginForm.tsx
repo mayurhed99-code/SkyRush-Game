@@ -1,5 +1,6 @@
 // frontend/src/components/LoginForm.tsx
-import { useState, FormEvent } from 'react'
+import { useState } from 'react'
+import type { FormEvent } from 'react'
 
 interface Props {
   onSubmit: (creds: { username: string; password: string }) => void
