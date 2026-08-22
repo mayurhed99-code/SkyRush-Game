@@ -3,8 +3,13 @@ export class GameLoop {
   private lastMs: number | null = null
   private accumulatorSec = 0
   private running = true
+  private update: (dt: number) => void
+  private fixedDt: number
 
-  constructor(private update: (dt: number) => void, private fixedDt = 1 / 60) {}
+  constructor(update: (dt: number) => void, fixedDt = 1 / 60) {
+    this.update = update
+    this.fixedDt = fixedDt
+  }
 
   start() {
     this.running = true
