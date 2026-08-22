@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  frontend-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm test -- --run
+
+  backend-unit-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+      - name: Run unit tests only (no Testcontainers)
+        run: |
+          ./mvnw test -Dtest="JwtServiceTest,AuthServiceTest,AntiCheatServiceTest,RateLimiterServiceTest,RolloverServiceTest" -pl .
+
+  backend-integration-test:
+    runs-on: ubuntu-latest
+    needs: backend-unit-test
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      # Testcontainers pulls its own MySQL; this service is a no-op placeholder
+      # kept to show intent. Remove if using Testcontainers exclusively.
+      docker:
+        image: docker:dind
+        options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+      - name: Run integration tests (Testcontainers)
+        run: ./mvnw test -pl .
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: [frontend-test, backend-integration-test]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t skyrush:${{ github.sha }} .
