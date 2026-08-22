@@ -1,6 +1,6 @@
 // frontend/src/services/authService.ts
 import { api } from './api'
-import { UserResponse } from '../stores/authStore'
+import type { UserResponse } from '../stores/authStore'
 
 interface AuthResponseBody {
   accessToken: string
