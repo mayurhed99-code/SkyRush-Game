@@ -1,5 +1,5 @@
 // frontend/src/game/PlatformManager.ts
-import { Rect } from './Collision'
+import type { Rect } from './Collision'
 
 export type PlatformType = 'NORMAL' | 'BREAKABLE'
 

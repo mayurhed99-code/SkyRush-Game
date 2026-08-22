@@ -5,7 +5,7 @@ import { PlatformManager } from './PlatformManager'
 import { ComboSystem } from './ComboSystem'
 import { isLandingOnTop } from './Collision'
 import { computeLandingPoints, computeHeightBonus, computeBreakBonus } from './ScoreSystem'
-import { GameState } from './types'
+import type { GameState } from './types'
 
 const FALL_OUT_MARGIN_PX = 700 // player is this far below the camera view => game over
 const VIEWPORT_HEIGHT = 700

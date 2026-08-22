@@ -1,12 +1,13 @@
 // frontend/src/hooks/useGameLoop.ts
-import { useEffect, useRef, RefObject } from 'react'
+import { useEffect, useRef } from 'react'
+import type { RefObject } from 'react'
 import { GameEngine } from '../game/GameEngine'
 import { GameLoop } from '../game/GameLoop'
 import { useGameStore } from '../stores/gameStore'
 
 const HUD_UPDATE_INTERVAL_MS = 100 // 10fps
 
-export function useGameLoop(canvasRef: RefObject<HTMLCanvasElement>) {
+export function useGameLoop(_canvasRef: RefObject<HTMLCanvasElement | null>) {
   const engineRef = useRef<GameEngine>(undefined)
   const jumpRef = useRef(false)
   const setHudState = useGameStore((s) => s.setHudState)

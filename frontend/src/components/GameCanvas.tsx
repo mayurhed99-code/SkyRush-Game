@@ -2,14 +2,14 @@
 import { useEffect, useRef } from 'react'
 import { useGameLoop } from '../hooks/useGameLoop'
 import { useGameStore } from '../stores/gameStore'
-import { GameState } from '../game/types'
+import type { GameState } from '../game/types'
 
 interface Props {
   onGameOver: (finalState: GameState) => void
 }
 
 export function GameCanvas({ onGameOver }: Props) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const { onJumpInput, engine } = useGameLoop(canvasRef)
   const phase = useGameStore((s) => s.hudState.phase)
 
